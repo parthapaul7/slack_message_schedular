@@ -1,0 +1,163 @@
+{
+	"type": "modal",
+	"title": {
+		"type": "plain_text",
+		"text": "My App",
+		"emoji": true
+	},
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "step 2 of 2",
+				"emoji": true
+			}
+		},
+        {
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Your Composed Message",
+				"emoji": true
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "plain_text",
+					"text": "<@{message]}>",
+					"emoji": true
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Configuration",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "Leave date and time unchanged if want to send now",
+				"emoji": true
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Pick a Date"
+			},
+			"accessory": {
+				"type": "datepicker",
+				"initial_date": "2022-11-05",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Select a date",
+					"emoji": true
+				},
+				"action_id": "datepicker"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Pick a time "
+			},
+			"accessory": {
+				"type": "timepicker",
+				"initial_time": "13:37",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Select time",
+					"emoji": true
+				},
+				"action_id": "timepicker"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Time Zone Adjustment"
+			},
+			"accessory": {
+				"type": "static_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Select an item",
+					"emoji": true
+				},
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Adjust for My time zone",
+							"emoji": true
+						},
+						"value": "false"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Adjust to recipient's time zone",
+							"emoji": true
+						},
+						"value": "true"
+					}
+				],
+				"action_id": "timezone"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "radio_buttons",
+					"options": [
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "send as @<user1>",
+								"emoji": true
+							},
+							"value": "value-0"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "send as @<Bot>",
+								"emoji": true
+							},
+							"value": "value-1"
+						}
+					],
+					"action_id": "actionId-0"
+				}
+			]
+		}
+	]
+}
