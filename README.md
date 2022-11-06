@@ -14,6 +14,9 @@ https://app.slack.com/app-settings/T048KBHEV5K/A049XH3GKB3/socket-mode
 
 add this environments 
 
+## slack oAuth app permissions 
+![image](https://user-images.githubusercontent.com/83518670/200177307-aa860254-f69e-45d0-9286-ea1b395eea09.png)
+
 
 ## Shortcut modal preview
 ![image](https://user-images.githubusercontent.com/83518670/200177004-762f3b71-6923-4997-b651-6ec155859ca8.png)
