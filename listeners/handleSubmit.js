@@ -3,18 +3,29 @@ const { readFileSync } = require("fs");
 const { blocks } = JSON.parse(readFileSync("./views/success.json"));
 const {formatBlocks} = require("../utils/handleData");
 const {scheduleMsg} = require("../controllers/scheduleMsg");
-const {storeBlocks,removeBlocks} = require("../database/data");
+const {storeBlocks,removeBlocks} = require("../database/dataHandler");
+const {getCounts} = require("../database/dataHandler");
 
 module.exports = async (app) => {
   
-  // console.log("msg sent",blocks[0].text.text);
+  /// resuming service if server stopped in between
+  if(getCounts().isRunning){
+    const data = JSON.parse(readFileSync("./database/data.json"));
+    try{
+      await scheduleMsg(data)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
 
 
   return app.view("send_msg3", async ({ ack, body, view, client }) => {
 
     // console.log("view", view.state.values);
     const blockData = formatBlocks(view.state.values);
-    const data = {...storeBlocks(),...blockData};
+    const data = {...storeBlocks(blockData)};
+
     const response = await scheduleMsg(data);
     removeBlocks();
 

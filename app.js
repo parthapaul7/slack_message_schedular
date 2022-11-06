@@ -14,7 +14,6 @@ const handleSubmit = require("./listeners/handleSubmit");
 const handleSpep2 = require("./listeners/handleStep2");
 const { test } = require("./listeners/test");
 
-// test(app);
 /// handling the shortcut
 (async () => {
   const promises = [listenShortcut(app), handleSubmit(app), handleSpep2(app)]; 

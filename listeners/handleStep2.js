@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs");
 const {formatBlocks} = require("../utils/handleData");
 const { blocks } = JSON.parse(readFileSync("./views/step2.json"));
-const {storeBlocks} = require("../database/data");
+const {storeBlocks} = require("../database/dataHandler");
 
 module.exports = async (app) => {
 
