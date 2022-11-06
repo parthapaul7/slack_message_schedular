@@ -31,8 +31,12 @@ exports.storeCounts = (count,total) => {
     
     setCounts.msg_send = count
     setCounts.total_msg = total
+    // shifting unsend users
+    const temp = storedBlock.conversations.value.shift();
+    storedBlock = temp
 
    writeFileSync("./database/dataCount.json",JSON.stringify(setCounts,null,2))
+   writeFileSync("./database/data.json",JSON.stringify(storedBlock,null,2))
 
    return setCounts 
 }
