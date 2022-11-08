@@ -1,1 +1,15 @@
-{}
+{
+  "messege": {
+    "type": "plain_text_input",
+    "value": "Hi {firstName}\nhow are you doing"
+  },
+  "conversations": {
+    "type": "multi_conversations_select",
+    "selected_conversations": [
+      "U048NA1EC82"
+    ],
+    "value": [
+      "U048NA1EC82"
+    ]
+  }
+}
