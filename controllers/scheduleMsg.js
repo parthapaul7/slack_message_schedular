@@ -1,4 +1,5 @@
 const { WebClient, LogLevel } = require("@slack/web-api");
+const { storeCounts } = require("../database/dataHandler");
 const { sendMsg } = require("../utils/sendMsg");
 const { timezoneDiff } = require("../utils/userData");
 
@@ -22,10 +23,13 @@ exports.scheduleMsg = async (blockData) => {
   const ids = blockData.conversations.value;
 
   for (let i = 0; i < ids.length; i++) {
+
+    storeCounts(i, ids.length);
+
     if (isTzAdjust) {
       const tz_offset = await timezoneDiff(ids[i]);
       time = time - tz_offset;
-      console.log(time);
+      // console.log(time);
       allMsg.push(
         sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
       );
