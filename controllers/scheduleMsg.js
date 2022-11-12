@@ -1,13 +1,17 @@
 const { timezoneDiff } = require("../utils/userData");
-const {saveToDb, saveToDB, updateToDB} = require('../database/dataHandler');
-require("./job");
-
+const {saveToDB} = require('../database/dataHandler');
 const { Queue } = require("bullmq");
+
 
 
 exports.scheduleMsg = async (blockData) => {
   // doing the jobs
-  const queue = new Queue("sendMsg");
+  const queue = new Queue("sendMsg",{
+    connection: {
+      host: "127.0.0.1",
+      port: 6379
+    }
+  });
 
   const strTime =
     blockData.timepicker.value != "13:37"
@@ -38,7 +42,7 @@ exports.scheduleMsg = async (blockData) => {
 
       queue.add("sendMsg", dataTobesend,{delay:time});
     } else {
-      queue.add("sendMsg", dataTobesend,{delay:time});
+      queue.add("sendMsg", dataTobesend,{delay:10000});
     }
     // storeCounts(i+1, ids.length);
   }
