@@ -8,8 +8,30 @@ const client = new WebClient(userToken, {
   logLevel: LogLevel.DEBUG,
 });
 
-const { timezoneDiff } = require("../utils/userData");
+// testing bull 
+
+const Queue  = require("bull");
+const sendMsg = new Queue("sendMsg",{
+  redis:{
+    host:"",
+    port:"",
+    password:"",
+  }
+});
+
+sendMsg.add("sendIt",{name: "test"}).then((result) => {
+  console.log("the result is", result);
+}).catch((error) => {
+  console.error(error);
+});
+
+sendMsg.process((job) => {
+  return console.log("the job is", job.data);
+});
+
+
 
 exports.test = async (app) => {
-  return await timezoneDiff(client,"U049MCQTJTW" );
+  console.log("test is running");
+   
 };

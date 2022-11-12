@@ -24,20 +24,20 @@ exports.scheduleMsg = async (blockData) => {
 
   for (let i = 0; i < ids.length; i++) {
 
-    storeCounts(i, ids.length);
-
+    
     if (isTzAdjust) {
       const tz_offset = await timezoneDiff(ids[i]);
       time = time - tz_offset;
       // console.log(time);
       allMsg.push(
         sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
-      );
-    } else {
-      allMsg.push(
-        sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
-      );
-    }
+        );
+      } else {
+        allMsg.push(
+          sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
+          );
+        }
+        // storeCounts(i+1, ids.length);
   }
 
   try {

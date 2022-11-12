@@ -12,9 +12,11 @@ const app = new App({
 const { listenShortcut } = require("./listeners/shortcutHandler");
 const handleSubmit = require("./listeners/handleSubmit");
 const handleSpep2 = require("./listeners/handleStep2");
-// const { test } = require("./listeners/test");
+const { test } = require("./listeners/test");
 
 /// handling the shortcut
+test(app);
+
 (async () => {
   const promises = [listenShortcut(app), handleSubmit(app), handleSpep2(app)]; 
   try {
