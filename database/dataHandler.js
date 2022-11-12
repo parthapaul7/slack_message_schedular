@@ -1,5 +1,6 @@
 const Asset = require('../database/model');
-
+const {readFileSync,writeFileSync} = require('fs');
+let storedBlock = JSON.parse(readFileSync("./database/data.json")); 
 
 exports.storeBlocks = (blocks) => {
 

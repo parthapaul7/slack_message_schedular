@@ -1,6 +1,7 @@
 require("dotenv").config();
+require("./controllers/job");
+
 const { App } = require("@slack/bolt");
-// connet to mongodb database with mongoose
 const mongoose = require("mongoose");
 
 // Initializes your app with your bot token | user token and signing secret
@@ -24,6 +25,7 @@ const handleSpep2 = require("./listeners/handleStep2");
 
 (async () => {
 
+  // connect ot the database
   mongoose.connect("mongodb://localhost:27017/slackAppDB").then((res) => {
     console.log("connected to database");
   })

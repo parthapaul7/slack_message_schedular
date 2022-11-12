@@ -1,21 +1,21 @@
 {
   "message": {
     "type": "plain_text_input",
-    "value": "added"
+    "value": "other time zone"
   },
   "conversations": {
     "type": "multi_conversations_select",
     "selected_conversations": [
-      "C048NKXHR7V"
+      "U048NA1EC82"
     ],
     "value": [
-      "C048NKXHR7V"
+      "U048NA1EC82"
     ]
   },
   "datepicker": {
     "type": "datepicker",
-    "selected_date": "2022-11-05",
-    "value": "2022-11-05"
+    "selected_date": "2022-11-13",
+    "value": "2022-11-13"
   },
   "timepicker": {
     "type": "timepicker",
@@ -24,8 +24,22 @@
   },
   "timezone": {
     "type": "static_select",
-    "selected_option": null,
-    "value": null
+    "selected_option": {
+      "text": {
+        "type": "plain_text",
+        "text": "Adjust to recipient's time zone",
+        "emoji": true
+      },
+      "value": "true"
+    },
+    "value": {
+      "text": {
+        "type": "plain_text",
+        "text": "Adjust to recipient's time zone",
+        "emoji": true
+      },
+      "value": "true"
+    }
   },
   "actionId-0": {
     "type": "radio_buttons",
