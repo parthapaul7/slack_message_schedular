@@ -1,15 +1,17 @@
 {
-  "0": "U",
-  "1": "0",
-  "2": "4",
-  "3": "8",
-  "4": "N",
-  "5": "A",
-  "6": "1",
-  "7": "E",
-  "8": "C",
-  "9": "8",
-  "10": "2",
+  "message": {
+    "type": "plain_text_input",
+    "value": "added"
+  },
+  "conversations": {
+    "type": "multi_conversations_select",
+    "selected_conversations": [
+      "C048NKXHR7V"
+    ],
+    "value": [
+      "C048NKXHR7V"
+    ]
+  },
   "datepicker": {
     "type": "datepicker",
     "selected_date": "2022-11-05",

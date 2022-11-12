@@ -1,16 +1,19 @@
 const userToken = process.env.USER_TOKEN;
 const {refactorMsg} = require('./refactorMsg');
+const { WebClient } = require("@slack/web-api");
 
-exports.sendMsg = async (client, id, text, time) => {
+const client = new WebClient(userToken, {});
+
+
+exports.sendMsg = async (id, text, time) => {
     refactorText = await refactorMsg(text,id);
 
 
   try {
-    const result = await client.chat.scheduleMessage({
+    const result = await client.chat.postMessage({
       token: userToken,
       channel: id,
       text: refactorText,
-      post_at: time || Math.ceil(Date.now() / 1000) + 10,
     });
     return result;
   } catch (error) {

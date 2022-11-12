@@ -1,6 +1,5 @@
-const {readFileSync,writeFileSync, write} =  require('fs')
+const Asset = require('../database/model');
 
-let storedBlock= JSON.parse(readFileSync("./database/data.json"));
 
 exports.storeBlocks = (blocks) => {
 
@@ -17,34 +16,23 @@ exports.removeBlocks= () => {
     return true
 }
 
-const setCounts = {
-    isRunning : false,
-    msg_send:0,
-    total_msg:0, 
-} 
 
-exports.storeCounts = (count,total) => {
-    setCounts.isRunning = false 
-    if(count<total){
-        setCounts.isRunning = true
+
+exports.saveToDB =  async (data) => {
+    const payload= {
+        message: data.message.value,
+        totalUsers: data.conversations.value,
+        successUsers: [],
+        datePicker: data.datepicker.value,
+        timePicker: data.timepicker.value,
+        tz: data.timezone?.value?.value || " ",
     }
-    
-    setCounts.msg_send = count
-    setCounts.total_msg = total
-    // shifting unsend users
-    const temp = storedBlock.conversations.value.shift();
-    storedBlock = temp
-
-   writeFileSync("./database/dataCount.json",JSON.stringify(setCounts,null,2))
-   writeFileSync("./database/data.json",JSON.stringify(storedBlock,null,2))
-
-   return setCounts 
+    const asset = new Asset(payload);
+    const res = await asset.save()
+    return res._id
 }
 
-exports.getCounts = () => {
-    const data = JSON.parse(readFileSync("./database/dataCount.json"));
-    return data 
+exports.updateToDB = async (id,data) => {
+    const res = await Asset.findByIdAndUpdate(id,data)
+    return res
 }
-
-
-

@@ -27,14 +27,8 @@ module.exports = async (app) => {
     const data = {...storeBlocks(blockData)};
 
     const response = await scheduleMsg(data);
-    removeBlocks();
+    // removeBlocks();
 
-    if(response.msg_send){
-      blocks[0].text.text = `messege send to ${response.msg_send}`;
-    }
-    else{
-      blocks[0].text.text = `messege not send to ${response.msg_notSend}`;
-    }
 
     await ack();
     try {

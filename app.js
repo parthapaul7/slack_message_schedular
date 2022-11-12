@@ -1,5 +1,7 @@
 require("dotenv").config();
 const { App } = require("@slack/bolt");
+// connet to mongodb database with mongoose
+const mongoose = require("mongoose");
 
 // Initializes your app with your bot token | user token and signing secret
 
@@ -12,12 +14,20 @@ const app = new App({
 const { listenShortcut } = require("./listeners/shortcutHandler");
 const handleSubmit = require("./listeners/handleSubmit");
 const handleSpep2 = require("./listeners/handleStep2");
-const { test } = require("./listeners/test");
+// const { test } = require("./listeners/test");
 
 /// handling the shortcut
-test(app);
+// test(app);
+//connect to database 
+
+
 
 (async () => {
+
+  mongoose.connect("mongodb://localhost:27017/slackAppDB").then((res) => {
+    console.log("connected to database");
+  })
+
   const promises = [listenShortcut(app), handleSubmit(app), handleSpep2(app)]; 
   try {
     const result = await Promise.all(promises);
