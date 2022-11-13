@@ -11,15 +11,16 @@ const assetSchema = new Schema(
       type: Array,
       required: true,
     },
-    successUsers: {
-        type: Array,
-        required: true,
-    },
-    datePicker: {
+
+    successUsers: [
+      {
+        time: { type: String, required: true },
+        user: { type: String, required: true },
+      },
+    ],
+    timeToSend: {
       type: String,
-    },
-    timePicker: {
-      type: String,
+      required: true,
     },
     tz: {
       type: String,
@@ -30,6 +31,5 @@ const assetSchema = new Schema(
     timestamps: true,
   }
 );
-
 
 module.exports = mongoose.model("Asset", assetSchema);

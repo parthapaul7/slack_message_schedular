@@ -19,7 +19,6 @@ exports.scheduleMsg = async (blockData) => {
       : Date.now();
 
   let time = new Date(strTime).getTime()- Date.now();
-  let count = 0;
 
   const isTzAdjust = blockData.timezone?.value?.value == "true" ? true : false;
   const ids = blockData.conversations.value;
@@ -42,15 +41,11 @@ exports.scheduleMsg = async (blockData) => {
 
       queue.add("sendMsg", dataTobesend,{delay:time});
     } else {
-      queue.add("sendMsg", dataTobesend,{delay:10000});
+      queue.add("sendMsg", dataTobesend,{delay:time});
     }
-    // storeCounts(i+1, ids.length);
   }
+  
+  return ids.length; 
 
-  count = ids.length; 
 
-  return {
-    msg_send: count || 0,
-    msg_notSend: blockData.conversations.value.length - count || 0,
-  } 
 };

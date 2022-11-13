@@ -17,9 +17,7 @@ const handleSubmit = require("./listeners/handleSubmit");
 const handleSpep2 = require("./listeners/handleStep2");
 // const { test } = require("./listeners/test");
 
-/// handling the shortcut
 // test(app);
-//connect to database 
 
 
 

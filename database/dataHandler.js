@@ -20,12 +20,16 @@ exports.removeBlocks= () => {
 
 
 exports.saveToDB =  async (data) => {
+    const strTime =
+    data.timepicker.value != "13:37"
+      ? data.datepicker.value + " " + data.timepicker.value
+      : Date.now();
+
     const payload= {
         message: data.message.value,
         totalUsers: data.conversations.value,
         successUsers: [],
-        datePicker: data.datepicker.value,
-        timePicker: data.timepicker.value,
+        timeToSend: (new Date(strTime)).toISOString(),
         tz: data.timezone?.value?.value || " ",
     }
     const asset = new Asset(payload);
@@ -34,6 +38,20 @@ exports.saveToDB =  async (data) => {
 }
 
 exports.updateToDB = async (id,data) => {
-    const res = await Asset.findByIdAndUpdate(id,data)
-    return res
+    const {successUsers} = data;
+    const time = new Date().toISOString();
+
+    const payload = {
+        user: successUsers,
+        time: time
+    }
+    try{
+
+        const res = await Asset.findByIdAndUpdate(id,{successUsers: payload},{new:true})
+        return res
+    }catch(err){
+        console.log(err)
+        return new Error(err)
+    }
+
 }

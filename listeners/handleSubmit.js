@@ -14,9 +14,10 @@ module.exports = async (app) => {
     const blockData = formatBlocks(view.state.values);
     const data = {...storeBlocks(blockData)};
 
-    const response = await scheduleMsg(data);
+    const res = await scheduleMsg(data);
     // removeBlocks();
-
+    
+    blocks[0].text.text = `${res} messages will be sent`;
 
     await ack();
     try {

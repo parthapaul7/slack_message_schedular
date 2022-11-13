@@ -18,6 +18,6 @@ exports.sendMsg = async (id, text, time) => {
     return result;
   } catch (error) {
     console.error(error);
-    return error;
+    return new Error(error);
   }
 };

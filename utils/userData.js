@@ -18,20 +18,19 @@ async function getUserInfo(userId) {
     return userInfo;
     
   } catch (error) {
-    console.log(error); 
     return null
   }
 }
 
-exports.timezoneDiff = async (client, userid) => {
+exports.timezoneDiff = async (userid) => {
   // const res = await client.users.list()
   try {
-    const userTimezone = await getUserInfo(userid).user.tz_offset;
+    const userTimezone = (await getUserInfo(userid)).user.tz_offset;
     profileTz = userTimezone - profileTimezone.user.tz_offset;
     return profileTz;
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return 0;
   }
 

@@ -1,22 +1,27 @@
-const { Worker,QueueEvents} = require('bullmq');
+const { Worker, QueueEvents } = require('bullmq');
 const { updateToDB } = require('../database/dataHandler');
-const {sendMsg} = require('../utils/sendMsg');
+const { sendMsg } = require('../utils/sendMsg');
 
 const events = new QueueEvents('sendMsg');
 
 new Worker('sendMsg', async (job) => {
-    // console.log('Processing job', job.id, job.data);
-    const {  ids, msg, time } = job.data;
-    sendMsg( ids, msg, time);
-    await updateToDB(job.data.dbId, {successUsers:job.data.ids})
-  });
+  // console.log('Processing job', job.id, job.data);
+  const { ids, msg, time } = job.data;
+  const res = await sendMsg(ids, msg, time);
+  return {
+    ...res,
+    dbId: job.data.dbId,
+    ids: job.data.ids,
+  }
+});
 
 /// event handeling
-events.on("completed", (result) => {
+events.on("completed", async (result) => {
   console.log("job completed", result);
-    return {
-      msg_send:  result.jobId, 
-      msg_notSend:  0,
-    };
+  await updateToDB(result.returnvalue.dbId, { successUsers: result.returnvalue.ids })
+  return {
+    msg_send: result.jobId,
+    msg_notSend: 0,
+  };
 });
 
