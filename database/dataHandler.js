@@ -1,6 +1,6 @@
-const {readFileSync,writeFileSync, write} =  require('fs')
-
-let storedBlock= JSON.parse(readFileSync("./database/data.json"));
+const Asset = require('../database/model');
+const {readFileSync,writeFileSync} = require('fs');
+let storedBlock = JSON.parse(readFileSync("./database/data.json")); 
 
 exports.storeBlocks = (blocks) => {
 
@@ -17,34 +17,41 @@ exports.removeBlocks= () => {
     return true
 }
 
-const setCounts = {
-    isRunning : false,
-    msg_send:0,
-    total_msg:0, 
-} 
 
-exports.storeCounts = (count,total) => {
-    setCounts.isRunning = false 
-    if(count<total){
-        setCounts.isRunning = true
+
+exports.saveToDB =  async (data) => {
+    const strTime =
+    data.timepicker.value != "13:37"
+      ? data.datepicker.value + " " + data.timepicker.value
+      : Date.now();
+
+    const payload= {
+        message: data.message.value,
+        totalUsers: data.conversations.value,
+        successUsers: [],
+        timeToSend: (new Date(strTime)).toISOString(),
+        tz: data.timezone?.value?.value || " ",
     }
-    
-    setCounts.msg_send = count
-    setCounts.total_msg = total
-    // shifting unsend users
-    const temp = storedBlock.conversations.value.shift();
-    storedBlock = temp
-
-   writeFileSync("./database/dataCount.json",JSON.stringify(setCounts,null,2))
-   writeFileSync("./database/data.json",JSON.stringify(storedBlock,null,2))
-
-   return setCounts 
+    const asset = new Asset(payload);
+    const res = await asset.save()
+    return res._id
 }
 
-exports.getCounts = () => {
-    const data = JSON.parse(readFileSync("./database/dataCount.json"));
-    return data 
+exports.updateToDB = async (id,data) => {
+    const {successUsers} = data;
+    const time = new Date().toISOString();
+
+    const payload = {
+        user: successUsers,
+        time: time
+    }
+    try{
+
+        const res = await Asset.findByIdAndUpdate(id,{successUsers: payload},{new:true})
+        return res
+    }catch(err){
+        console.log(err)
+        return new Error(err)
+    }
+
 }
-
-
-

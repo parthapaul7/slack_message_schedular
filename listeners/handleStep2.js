@@ -11,7 +11,7 @@ module.exports = async (app) => {
     const blockData = formatBlocks(view.state.values);
     storeBlocks(blockData);
 
-    blocks[2].elements[0].text = blockData.messege.value;
+    blocks[2].elements[0].text = blockData.message.value;
 
     await ack();
     try {

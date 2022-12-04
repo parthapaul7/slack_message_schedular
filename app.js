@@ -1,5 +1,8 @@
 require("dotenv").config();
+require("./controllers/job");
+
 const { App } = require("@slack/bolt");
+
 // Initializes your app with your bot token | user token and signing secret
 const app = new App({
     token: process.env.USER_TOKEN || process.env.BOT_TOKEN,
@@ -10,8 +13,10 @@ const { listenShortcut } = require("./listeners/shortcutHandler");
 const handleSubmit = require("./listeners/handleSubmit");
 const handleSpep2 = require("./listeners/handleStep2");
 const { test } = require("./listeners/test");
+
 /// handling the shortcut
 test(app);
+
 (async() => {
     const promises = [listenShortcut(app), handleSubmit(app), handleSpep2(app)];
     try {

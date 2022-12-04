@@ -1,58 +1,51 @@
-const { WebClient, LogLevel } = require("@slack/web-api");
-const { storeCounts } = require("../database/dataHandler");
-const { sendMsg } = require("../utils/sendMsg");
 const { timezoneDiff } = require("../utils/userData");
+const {saveToDB} = require('../database/dataHandler');
+const { Queue } = require("bullmq");
 
-const client = new WebClient(process.env.USER_TOKEN, {});
+
 
 exports.scheduleMsg = async (blockData) => {
+  // doing the jobs
+  const queue = new Queue("sendMsg",{
+    connection: {
+      host: "127.0.0.1",
+      port: 6379
+    }
+  });
+
   const strTime =
     blockData.timepicker.value != "13:37"
       ? blockData.datepicker.value + " " + blockData.timepicker.value
-      : Date.now() + 10000;
+      : Date.now();
 
-  // 10 seconds is added as a buffer time to ensure that the message is sent after the scheduled time
-  let time = new Date(strTime).getTime() / 1000;
+  let time = new Date(strTime).getTime()- Date.now();
 
-  let count = 0;
-  const allMsg = [];
-
-  // console.log(blockData.timezone);
   const isTzAdjust = blockData.timezone?.value?.value == "true" ? true : false;
-  // console.log(blockData.timezone);
   const ids = blockData.conversations.value;
 
-  for (let i = 0; i < ids.length; i++) {
+  const dbId = await saveToDB(blockData);
 
-    
+  for (let i = 0; i < ids.length; i++) {
+    const dataTobesend = {
+      dbId: dbId,
+      ids: ids[i],
+      msg: blockData.message.value,
+      time: Math.ceil(time),
+    };
+
     if (isTzAdjust) {
       const tz_offset = await timezoneDiff(ids[i]);
       time = time - tz_offset;
-      // console.log(time);
-      allMsg.push(
-        sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
-        );
-      } else {
-        allMsg.push(
-          sendMsg(client, ids[i], blockData.messege.value, Math.ceil(time))
-          );
-        }
-        // storeCounts(i+1, ids.length);
-  }
+      dataTobesend.time = Math.ceil(time);
 
-  try {
-    const result = await Promise.all(allMsg);
 
-    result.forEach((res) => {
-      if (res.ok == true) {
-        count++;
-      }
-    });
-  } catch (error) {
-    console.log(error);
+      queue.add("sendMsg", dataTobesend,{delay:time});
+    } else {
+      queue.add("sendMsg", dataTobesend,{delay:time});
+    }
   }
-  return {
-    msg_send: count,
-    msg_notSend: blockData.conversations.value.length - count,
-  };
+  
+  return ids.length; 
+
+
 };

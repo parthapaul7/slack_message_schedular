@@ -28,7 +28,7 @@
 			"type": "section",
 			"text": {
 				"type": "plain_text",
-				"text": "Write Your messege",
+				"text": "Write Your message",
 				"emoji": true
 			}
 		},
@@ -37,7 +37,7 @@
 			"element": {
 				"type": "plain_text_input",
 				"multiline": true,
-				"action_id": "messege"
+				"action_id": "message"
 			},
 			"label": {
 				"type": "plain_text",
