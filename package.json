@@ -1,18 +1,26 @@
 {
-  "name": "slack-bot",
-  "version": "1.0.0",
-  "description": "slack",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@slack/bolt": "^3.12.2",
-    "@slack/web-api": "^6.7.2",
-    "bull": "^4.10.1",
-    "dotenv": "^16.0.3"
-  }
+    "name": "slack-bot",
+    "version": "1.0.0",
+    "description": "slack",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "prettier": {
+        "singleQuote": true,
+        "semi": false,
+        "tabWidth": 4,
+        "bracketSpacing": true,
+        "allowBlnakLines": true
+    },
+    "dependencies": {
+        "@slack/bolt": "^3.12.2",
+        "@slack/web-api": "^6.7.2",
+        "bull": "^4.10.1",
+        "bullmq": "^3.2.0",
+        "dotenv": "^16.0.3"
+    }
 }
