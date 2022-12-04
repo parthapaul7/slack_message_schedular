@@ -28,7 +28,7 @@ services:
   redis:
     image: redis:6.2.5
     ports:
-      - 6379:6379
+      - 6007:6379
     volumes:
       - redis:/redis-data
     logging:
