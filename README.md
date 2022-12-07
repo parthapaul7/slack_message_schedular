@@ -3,7 +3,11 @@
 This app is using slack web socket mode please create a slack app and enable socket mode in slack 
 
 
-https://app.slack.com/app-settings/T048KBHEV5K/A049XH3GKB3/socket-mode
+https://app.slack.com/app-settings/
+
+## requirements 
+*mongoDB*
+*redis*
 
 ## environments
 ``` USER_TOKEN ```xoxp-429139*******
