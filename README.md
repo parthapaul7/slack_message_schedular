@@ -6,15 +6,16 @@ This app is using slack web socket mode please create a slack app and enable soc
 https://app.slack.com/app-settings/
 
 ## requirements 
-*mongoDB*
-*redis*
+*mongoDB-4.4*
+
+*redis-6*
 
 ## environments
-``` USER_TOKEN ```xoxp-429139*******
+``` USER_TOKEN=xoxp-429139******* ```
 
-``` BOT_TOKEN ```xoxb-77677888888888**
+``` BOT_TOKEN =xoxb-77677888888888**```
 
-``` SLACK_APP_TOKEN``` xapp-1-A0908GH88888***
+``` SLACK_APP_TOKEN=xapp-1-A0908GH88888***```
 
 add this environments 
 
